@@ -1,4 +1,4 @@
-package com.example.cafe
+package com.example.cafe.common.ui.activity
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,17 +10,19 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.cafe.ui.theme.CAFETheme
+import com.example.cafe.common.theme.CAFETheme
+import com.example.cafe.common.theme.CafeTheme.colors
+import com.example.cafe.common.theme.CafeTheme.typography
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CAFETheme {
+            CAFETheme() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    color = colors.background
                 ) {
                     Greeting("Android")
                 }
@@ -31,7 +33,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+    Text(text = "Hello $name!", style = typography.heading4)
 }
 
 @Preview(showBackground = true)
