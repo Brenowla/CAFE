@@ -55,7 +55,6 @@ fun CAFETheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = LightColorScheme
-    val rememberedColors = remember { colorScheme.copy() }.apply { updateColorsFrom(colorScheme) }
     val view = LocalView.current
     if (!view.isInEditMode) {
         SideEffect {
@@ -65,12 +64,12 @@ fun CAFETheme(
     }
 
     CompositionLocalProvider(
-        LocalColors provides rememberedColors,
+        LocalColors provides colorScheme,
         LocalTypography provides typography,
         LocalSpacing provides spacing,
     ) {
         ProvideTextStyle(
-            value = typography.body.copy(color = rememberedColors.dark),
+            value = typography.body.copy(color = colorScheme.dark),
             content = content
         )
     }

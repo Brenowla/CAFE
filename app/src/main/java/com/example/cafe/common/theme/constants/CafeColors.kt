@@ -16,6 +16,7 @@ class CafeColors(
     dark: Color,
     muted: Color,
     background: Color,
+    light100: Color
 ) {
 
     var primary100 by mutableStateOf(primary100, structuralEqualityPolicy())
@@ -42,36 +43,8 @@ class CafeColors(
     var background by mutableStateOf(background, structuralEqualityPolicy())
         internal set
 
-    fun copy(
-        primary100: Color = this.primary100,
-        primary200: Color = this.primary200,
-        secondary100: Color = this.secondary100,
-        secondary200: Color = this.secondary200,
-        info: Color = this.info,
-        dark: Color = this.dark,
-        muted: Color = this.muted,
-        background: Color = this.background
-    ): CafeColors = CafeColors(
-        primary100,
-        primary200,
-        secondary100,
-        secondary200,
-        info,
-        dark,
-        muted,
-        background
-    )
-
-    fun updateColorsFrom(other: CafeColors) {
-        primary100 = other.primary100
-        primary200 = other.primary200
-        secondary100 = other.secondary100
-        secondary200 = other.secondary200
-        info = other.info
-        dark = other.dark
-        muted = other.muted
-        background = other.background
-    }
+    var light100 by mutableStateOf(light100, structuralEqualityPolicy())
+        internal set
 }
 
 fun cafeLightColors(
@@ -82,7 +55,8 @@ fun cafeLightColors(
     info: Color = Info,
     dark: Color = Gray900,
     muted: Color = Gray600,
-    background: Color = NeutralWhite
+    background: Color = NeutralWhite,
+    light100: Color = Gray200
 ) = CafeColors(
     primary100 = primary100,
     primary200 = primary200,
@@ -91,7 +65,8 @@ fun cafeLightColors(
     info = info,
     dark = dark,
     muted = muted,
-    background = background
+    background = background,
+    light100 = light100
 )
 
 internal val LocalColors = staticCompositionLocalOf { cafeLightColors() }
