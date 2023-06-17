@@ -53,7 +53,7 @@ fun cafeLightColors(
     secondary100: Color = Secondary100,
     secondary200: Color = Secondary200,
     info: Color = Info,
-    dark: Color = Gray900,
+    dark: Color = Gray1000,
     muted: Color = Gray600,
     background: Color = NeutralWhite,
     light100: Color = Gray200
