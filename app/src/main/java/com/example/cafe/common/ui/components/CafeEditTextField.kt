@@ -57,7 +57,7 @@ fun CafeEditTextField(
                                 spacing.spacing2
                             )
                         )
-                        .padding(horizontal = spacing.spacing2, vertical = spacing.spacing2)
+                        .padding(horizontal = spacing.spacing3, vertical = spacing.spacing3)
                 ) {
                     Box(modifier.weight(weight = 1f)) {
                         if (value.isBlank()) {

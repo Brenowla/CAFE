@@ -15,9 +15,13 @@ import com.example.cafe.common.theme.CafeTheme.spacing
 import com.example.cafe.common.theme.CafeTheme.typography
 
 @Composable
-fun CafeButton() {
+fun CafeButton(
+    modifier: Modifier = Modifier,
+    text: String,
+    onClick: () -> Unit
+) {
     Button(
-        onClick = {}, shape = RoundedCornerShape(spacing.spacing16),
+        modifier = modifier,onClick = onClick, shape = RoundedCornerShape(spacing.spacing16),
         colors = ButtonDefaults.buttonColors(
             containerColor = colors.secondary200,
             contentColor = colors.background,
@@ -25,12 +29,12 @@ fun CafeButton() {
             disabledContentColor = colors.background.copy(alpha = 0.5f)
         )
     ) {
-        Text(text = "Texto do botao", style = typography.body)
+        Text(text = text, style = typography.body)
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun PreviewCafeButton() {
-    CafeButton()
+    CafeButton(text = "Texto do botão") {}
 }
