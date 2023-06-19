@@ -14,7 +14,9 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     val email = mutableStateOf("")
     val password = mutableStateOf("")
 
+    val loading = mutableStateOf(false)
     fun login() {
+        loading.value = true
         viewModelScope.launch {
             FirebaseAuthenticator.authenticate(
                 email.value,
@@ -24,6 +26,9 @@ class LoginViewModel @Inject constructor() : ViewModel() {
                 },
                 onFailure = {
                     val b = "deu ruim"
+                },
+                onCompletion = {
+                    loading.value = false
                 }
             )
         }

@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -34,6 +35,8 @@ fun CafeEditTextField(
     value: String,
     placeholder: String = "",
     onValueChange: (String) -> Unit = {},
+    maxLines: Int = 1,
+    imeAction: ImeAction = ImeAction.Next,
     visualTransformation: VisualTransformation = VisualTransformation.None,
     keyboardType: KeyboardType = KeyboardType.Text
 ) {
@@ -42,19 +45,27 @@ fun CafeEditTextField(
             value = value, onValueChange = {
                 onValueChange(it)
             }, textStyle = typography.sm, keyboardOptions = KeyboardOptions(
-                keyboardType = keyboardType
+                keyboardType = keyboardType,
+                imeAction = imeAction
             ),
+            maxLines = maxLines,
             visualTransformation = visualTransformation
         ) { innerTextField ->
             Column() {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
+                        .background(
+                            color = colors.background,
+                            shape = RoundedCornerShape(
+                                spacing.spacing16
+                            )
+                        )
                         .border(
                             color = colors.light100,
                             width = Dp.Hairline,
                             shape = RoundedCornerShape(
-                                spacing.spacing2
+                                spacing.spacing16
                             )
                         )
                         .padding(horizontal = spacing.spacing3, vertical = spacing.spacing3)

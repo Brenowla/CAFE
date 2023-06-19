@@ -11,13 +11,16 @@ object FirebaseAuthenticator {
         email: String,
         password: String,
         onSuccess: (AuthResult) -> Unit,
-        onFailure: (Exception) -> Unit
+        onFailure: (Exception) -> Unit,
+        onCompletion: () -> Unit
     ) {
         val authenticator = FirebaseAuth.getInstance()
         authenticator.signInWithEmailAndPassword(
             email, password
         ).addOnSuccessListener {
             onSuccess(it)
+        }.addOnCompleteListener {
+            onCompletion()
         }.addOnFailureListener { exc ->
             onFailure(exc)
         }

@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -21,12 +23,17 @@ import com.example.cafe.R
 import com.example.cafe.common.theme.CafeTheme.spacing
 import com.example.cafe.common.ui.components.CafeButton
 import com.example.cafe.common.ui.components.CafeEditTextField
+import com.example.cafe.common.ui.utils.setLoading
 import com.example.cafe.login.ui.viewmodel.LoginViewModel
 
 @Composable
 fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel()
 ) {
+    val context = LocalContext.current
+    LaunchedEffect(viewModel.loading.value) {
+        context.setLoading(viewModel.loading.value)
+    }
     Column(
         modifier = Modifier
             .fillMaxSize()
