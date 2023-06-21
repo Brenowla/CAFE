@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.Dp
 import com.example.cafe.common.theme.CafeTheme.colors
 import com.example.cafe.common.theme.CafeTheme.spacing
 import com.example.cafe.common.theme.CafeTheme.typography
+import com.example.cafe.common.theme.constants.Gray200
 
 @Composable
 fun CafeEditTextField(

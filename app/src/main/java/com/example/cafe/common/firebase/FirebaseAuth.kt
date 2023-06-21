@@ -2,27 +2,29 @@ package com.example.cafe.common.firebase
 
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import java.lang.Exception
 
-object FirebaseAuthenticator {
+object FirebaseAuthenticator : FirebaseBase<AuthResult, FirebaseAuthenticator.Params> {
 
-    suspend fun authenticate(
-        email: String,
-        password: String,
+    data class Params(
+        val email: String,
+        val password: String
+    )
+
+    override suspend fun produce(
+        params: Params,
         onSuccess: (AuthResult) -> Unit,
-        onFailure: (Exception) -> Unit,
+        onError: (Exception) -> Unit,
         onCompletion: () -> Unit
     ) {
         val authenticator = FirebaseAuth.getInstance()
         authenticator.signInWithEmailAndPassword(
-            email, password
+            params.email, params.password
         ).addOnSuccessListener {
             onSuccess(it)
         }.addOnCompleteListener {
             onCompletion()
         }.addOnFailureListener { exc ->
-            onFailure(exc)
+            onError(exc)
         }
     }
 }

@@ -18,13 +18,15 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     fun login() {
         loading.value = true
         viewModelScope.launch {
-            FirebaseAuthenticator.authenticate(
-                email.value,
-                password.value,
+            FirebaseAuthenticator.produce(
+                FirebaseAuthenticator.Params(
+                    email.value,
+                    password.value
+                ),
                 onSuccess = {
                     val a = "deu bom"
                 },
-                onFailure = {
+                onError = {
                     val b = "deu ruim"
                 },
                 onCompletion = {
