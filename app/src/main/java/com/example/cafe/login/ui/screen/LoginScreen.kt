@@ -25,14 +25,19 @@ import com.example.cafe.common.ui.components.CafeButton
 import com.example.cafe.common.ui.components.CafeEditTextField
 import com.example.cafe.common.ui.utils.setLoading
 import com.example.cafe.login.ui.viewmodel.LoginViewModel
+import com.google.firebase.auth.FirebaseUser
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
+    onLogin: (FirebaseUser) -> Unit
 ) {
     val context = LocalContext.current
     LaunchedEffect(viewModel.loading.value) {
         context.setLoading(viewModel.loading.value)
+    }
+    LaunchedEffect(viewModel.user.value) {
+        viewModel.user.value?.let(onLogin)
     }
     Column(
         modifier = Modifier
@@ -71,5 +76,7 @@ fun LoginScreen(
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen()
+    LoginScreen {
+
+    }
 }

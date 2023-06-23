@@ -1,9 +1,11 @@
 package com.example.cafe.login.ui.viewmodel
 
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cafe.common.firebase.FirebaseAuthenticator
+import com.example.cafe.common.firebase.providers.FirebaseAuthenticator
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -14,7 +16,13 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     val email = mutableStateOf("")
     val password = mutableStateOf("")
 
+    private val mUser = mutableStateOf<FirebaseUser?>(null)
+    val user: State<FirebaseUser?>
+        get() = mUser
+
+    val error = mutableStateOf<Exception?>(null)
     val loading = mutableStateOf(false)
+
     fun login() {
         loading.value = true
         viewModelScope.launch {
@@ -23,11 +31,12 @@ class LoginViewModel @Inject constructor() : ViewModel() {
                     email.value,
                     password.value
                 ),
-                onSuccess = {
-                    val a = "deu bom"
+                onSuccess = { auth ->
+                    mUser.value = auth.user
                 },
-                onError = {
-                    val b = "deu ruim"
+                onError = { err ->
+                    error.value = err
+                    error.value = null
                 },
                 onCompletion = {
                     loading.value = false

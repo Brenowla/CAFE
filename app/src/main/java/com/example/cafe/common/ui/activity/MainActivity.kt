@@ -40,7 +40,9 @@ class MainActivity : ComponentActivity() {
                         .padding(paddingValues = paddingValues)) {
                         NavHost(navController = navController, startDestination = "login") {
                             composable(route = "login") {
-                                LoginScreen()
+                                LoginScreen { user ->
+                                    mActivityViewModel.getUser(user)
+                                }
                             }
                         }
                         if (mActivityViewModel.loading.value) {

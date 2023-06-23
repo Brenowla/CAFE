@@ -1,5 +1,6 @@
-package com.example.cafe.common.firebase
+package com.example.cafe.common.firebase.providers
 
+import com.example.cafe.common.firebase.FirebaseBase
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
