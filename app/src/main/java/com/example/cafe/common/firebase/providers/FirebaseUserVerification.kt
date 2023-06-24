@@ -19,7 +19,7 @@ object FirebaseUserVerification : FirebaseBase<UserModel?, FirebaseUserVerificat
         onCompletion: () -> Unit
     ) {
         val db = Firebase.firestore
-        db.collection("user").whereEqualTo("id", params.uid).get()
+        db.collection("users").whereEqualTo("id", params.uid).get()
             .addOnSuccessListener { document ->
                 var user: UserModel? = null
                 document.documents.forEachIndexed { index, documentSnapshot ->

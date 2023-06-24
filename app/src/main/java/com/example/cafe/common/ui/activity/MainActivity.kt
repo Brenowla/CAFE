@@ -1,5 +1,6 @@
 package com.example.cafe.common.ui.activity
 
+import android.graphics.LinearGradient
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,9 +36,11 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     containerColor = colors.light100
                 ) { paddingValues ->
-                    Box(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues = paddingValues)) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues = paddingValues)
+                    ) {
                         NavHost(navController = navController, startDestination = "login") {
                             composable(route = "login") {
                                 LoginScreen { user ->
