@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.cafe.common.firebase.models.UserModel
+import com.example.cafe.common.firebase.providers.FirebaseAuthenticator
 import com.example.cafe.common.firebase.providers.FirebaseUserVerification
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,7 +14,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ActivityViewModel @Inject constructor() : ViewModel() {
+class ActivityViewModel @Inject constructor(
+    val mFirebaseUserVerification: FirebaseUserVerification
+) : ViewModel() {
 
     val loading = mutableStateOf(false)
 
@@ -25,7 +28,7 @@ class ActivityViewModel @Inject constructor() : ViewModel() {
     fun getUser(user: FirebaseUser) {
         loading.value = true
         viewModelScope.launch {
-            FirebaseUserVerification.produce(
+            mFirebaseUserVerification.produce(
                 params = FirebaseUserVerification.Params(
                     user.uid
                 ),

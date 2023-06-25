@@ -88,6 +88,6 @@ fun CafeEditTextField(
 fun PreviewCafeEditTextField() {
     CafeEditTextField(
         value = "",
-        placeholder = "akdhascdba"
+        placeholder = "placeholder"
     )
 }

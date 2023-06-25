@@ -3,8 +3,9 @@ package com.example.cafe.common.firebase.providers
 import com.example.cafe.common.firebase.FirebaseBase
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import javax.inject.Inject
 
-object FirebaseAuthenticator : FirebaseBase<AuthResult, FirebaseAuthenticator.Params> {
+class FirebaseAuthenticator @Inject constructor(): FirebaseBase<AuthResult, FirebaseAuthenticator.Params> {
 
     data class Params(
         val email: String,

@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             CAFETheme() {
                 Scaffold(
-                    containerColor = colors.secondary200
+                    containerColor = colors.light100
                 ) { paddingValues ->
                     Box(
                         modifier = Modifier

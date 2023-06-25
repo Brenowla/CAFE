@@ -5,8 +5,9 @@ import com.example.cafe.common.firebase.models.UserModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import javax.inject.Inject
 
-object FirebaseUserVerification : FirebaseBase<UserModel?, FirebaseUserVerification.Params> {
+class FirebaseUserVerification @Inject constructor() : FirebaseBase<UserModel?, FirebaseUserVerification.Params> {
 
     data class Params(
         val uid: String

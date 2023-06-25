@@ -11,7 +11,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val mFirebaseAuthenticator: FirebaseAuthenticator
+) : ViewModel() {
 
     val email = mutableStateOf("")
     val password = mutableStateOf("")
@@ -26,7 +28,7 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     fun login() {
         loading.value = true
         viewModelScope.launch {
-            FirebaseAuthenticator.produce(
+            mFirebaseAuthenticator.produce(
                 FirebaseAuthenticator.Params(
                     email.value,
                     password.value
