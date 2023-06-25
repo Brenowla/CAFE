@@ -1,6 +1,5 @@
 package com.example.cafe.common.ui.activity
 
-import android.graphics.LinearGradient
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,6 +17,7 @@ import com.example.cafe.common.theme.CafeTheme.colors
 import com.example.cafe.common.ui.LoadingScreen
 import com.example.cafe.common.ui.viewmodels.ActivityViewModel
 import com.example.cafe.login.ui.screen.LoginScreen
+import com.example.cafe.login.ui.screen.SignUpScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
             CAFETheme() {
                 Scaffold(
-                    containerColor = colors.light100
+                    containerColor = colors.secondary200
                 ) { paddingValues ->
                     Box(
                         modifier = Modifier
@@ -43,9 +43,12 @@ class MainActivity : ComponentActivity() {
                     ) {
                         NavHost(navController = navController, startDestination = "login") {
                             composable(route = "login") {
-                                LoginScreen { user ->
+                                LoginScreen(navController = navController) { user ->
                                     mActivityViewModel.getUser(user)
                                 }
+                            }
+                            composable(route = "sign-up") {
+                                SignUpScreen(navController = navController)
                             }
                         }
                         if (mActivityViewModel.loading.value) {
