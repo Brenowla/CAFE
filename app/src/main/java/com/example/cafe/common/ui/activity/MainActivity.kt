@@ -48,7 +48,13 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             composable(route = "sign-up") {
-                                SignUpScreen(navController = navController)
+                                SignUpScreen(navController = navController) {
+                                    navController.navigate("login") {
+                                        popUpTo("login") {
+                                            inclusive = true
+                                        }
+                                    }
+                                }
                             }
                         }
                         if (mActivityViewModel.loading.value) {

@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -32,8 +33,15 @@ import com.example.cafe.login.ui.viewmodel.SignUpViewModel
 @Composable
 fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    onSignUp: () -> Unit
 ) {
+    LaunchedEffect(viewModel.signUp.value) {
+        if(viewModel.signUp.value) {
+            onSignUp()
+        }
+    }
+
     Box(Modifier.fillMaxSize(), contentAlignment = Alignment.TopCenter) {
         Box(
             modifier = Modifier
@@ -116,5 +124,7 @@ fun SignUpScreen(
 @Preview(showBackground = true)
 @Composable
 fun PreviewSignUpScreen() {
-    SignUpScreen()
+    SignUpScreen() {
+
+    }
 }
