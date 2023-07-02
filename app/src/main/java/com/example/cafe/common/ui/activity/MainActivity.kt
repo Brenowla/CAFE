@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -18,6 +19,7 @@ import com.example.cafe.common.ui.LoadingScreen
 import com.example.cafe.common.ui.viewmodels.ActivityViewModel
 import com.example.cafe.login.ui.screen.LoginScreen
 import com.example.cafe.login.ui.screen.SignUpScreen
+import com.example.cafe.producers.ui.screens.ProducersBaseNavigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +35,17 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             CAFETheme() {
+                LaunchedEffect(mActivityViewModel.user.value) {
+                    mActivityViewModel.user.value?.let {
+                        if (it.rule == 1) {
+                            navController.navigate("producers") {
+                                popUpTo("login") {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    }
+                }
                 Scaffold(
                     containerColor = colors.light100
                 ) { paddingValues ->
@@ -55,6 +68,9 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
                                 }
+                            }
+                            composable(route = "producers") {
+                                ProducersBaseNavigation()
                             }
                         }
                         if (mActivityViewModel.loading.value) {
