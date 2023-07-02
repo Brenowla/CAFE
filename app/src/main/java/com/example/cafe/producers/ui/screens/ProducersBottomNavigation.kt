@@ -24,15 +24,17 @@ import com.example.cafe.common.theme.CafeTheme.spacing
 @Composable
 fun ProducersBottomNavigation(navController: NavController = rememberNavController()) {
     Row(
-        modifier = Modifier.background(
-            color = colors.secondary200,
-            shape = RoundedCornerShape(
-                topEnd = 16.dp,
-                topStart = 16.dp,
-                bottomStart = 0.dp,
-                bottomEnd = 0.dp
+        modifier = Modifier
+            .background(
+                color = colors.secondary200,
+                shape = RoundedCornerShape(
+                    topEnd = 16.dp,
+                    topStart = 16.dp,
+                    bottomStart = 0.dp,
+                    bottomEnd = 0.dp
+                )
             )
-        ).padding(vertical = spacing.spacing2)
+            .padding(vertical = spacing.spacing2)
     ) {
         Spacer(modifier = Modifier.weight(weight = 1f))
         Icon(
@@ -49,7 +51,11 @@ fun ProducersBottomNavigation(navController: NavController = rememberNavControll
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_add_circle),
             contentDescription = null,
-            modifier = Modifier.height(height = 32.dp),
+            modifier = Modifier
+                .height(height = 32.dp)
+                .clickable {
+                    navController.navigate("producers-add-item")
+                },
             tint = Color.White
         )
         Spacer(modifier = Modifier.weight(weight = 1f))

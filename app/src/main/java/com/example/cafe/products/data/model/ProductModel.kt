@@ -5,5 +5,9 @@ data class ProductModel(
     val image: String,
     val value: Double,
     val description: String,
+    val type: String,
     val producerId: String
-)
+) {
+
+    constructor(): this("", "", 0.0, "", "", "")
+}

@@ -49,6 +49,7 @@ private fun PreviewProductWidget() {
             image = "https://www.proativaalimentos.com.br/image/cache/catalog/img_prod/oleo-essencia-morango-100ml-fruta-puro-essencia-massagem-D_NQ_NP_960102-MLB31202671230_062019-F[1]-1000x1000.jpg",
             value = 10.50,
             description = "jidscjadkabkdc nhdcadjcha jxdhankd dcaucdxkahckd dncak cdka c",
+            "",
             producerId = "fsldknad"
         )
     )

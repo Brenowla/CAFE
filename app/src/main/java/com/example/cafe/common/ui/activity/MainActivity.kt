@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -34,6 +37,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
+            val snackbarHostState = remember {
+                SnackbarHostState()
+            }
             CAFETheme() {
                 LaunchedEffect(mActivityViewModel.user.value) {
                     mActivityViewModel.user.value?.let {
@@ -47,7 +53,8 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 Scaffold(
-                    containerColor = colors.light100
+                    containerColor = colors.light100,
+                    snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
                 ) { paddingValues ->
                     Box(
                         modifier = Modifier
@@ -70,7 +77,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             composable(route = "producers") {
-                                ProducersBaseNavigation()
+                                ProducersBaseNavigation(snackbarHostState = snackbarHostState)
                             }
                         }
                         if (mActivityViewModel.loading.value) {

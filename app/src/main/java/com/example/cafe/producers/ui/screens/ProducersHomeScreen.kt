@@ -15,35 +15,34 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.cafe.R
 import com.example.cafe.common.theme.CafeTheme.spacing
 import com.example.cafe.common.theme.CafeTheme.typography
 import com.example.cafe.common.ui.components.CafeEditTextField
+import com.example.cafe.producers.ui.viewmodels.ProducersHomeViewModel
 import com.example.cafe.products.constants.ProductsTypeEnum
 import com.example.cafe.products.data.model.ProductModel
 import com.example.cafe.products.ui.widget.ProductTypeWidget
 import com.example.cafe.products.ui.widget.ProductWidget
 
-val product = ProductModel(
-    name = "Morangos",
-    image = "https://www.proativaalimentos.com.br/image/cache/catalog/img_prod/oleo-essencia-morango-100ml-fruta-puro-essencia-massagem-D_NQ_NP_960102-MLB31202671230_062019-F[1]-1000x1000.jpg",
-    value = 10.50,
-    description = "jidscjadkabkdc nhdcadjcha jxdhankd dcaucdxkahckd dncak cdka c",
-    producerId = "fsldknad"
-)
-
 @Composable
-fun ProducersHomeScreen() {
+fun ProducersHomeScreen(
+    viewModel: ProducersHomeViewModel = hiltViewModel()
+) {
     val selectedProductsTypeEnum = remember {
         mutableStateOf<ProductsTypeEnum?>(null)
     }
-    val products = remember {
-        mutableStateOf(listOf(product, product, product, product, product, product))
+
+    LaunchedEffect(true) {
+        viewModel.getProducts()
     }
+
     Column() {
         Spacer(modifier = Modifier.height(height = spacing.spacing4))
         Text(text = "Seus produtos", modifier = Modifier.padding(horizontal = spacing.spacing4), style = typography.heading4)
@@ -68,7 +67,7 @@ fun ProducersHomeScreen() {
             }
         }
         LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
-            items(items = products.value) {
+            items(items = viewModel.items.value) {
                 Box(modifier = Modifier.padding(all = spacing.spacing4)) {
                     ProductWidget(product = it)
                 }
