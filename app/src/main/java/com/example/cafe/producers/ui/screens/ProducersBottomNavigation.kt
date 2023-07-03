@@ -22,7 +22,10 @@ import com.example.cafe.common.theme.CafeTheme.colors
 import com.example.cafe.common.theme.CafeTheme.spacing
 
 @Composable
-fun ProducersBottomNavigation(navController: NavController = rememberNavController()) {
+fun ProducersBottomNavigation(
+    navController: NavController = rememberNavController(),
+    onLoggoutClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .background(
@@ -66,11 +69,24 @@ fun ProducersBottomNavigation(navController: NavController = rememberNavControll
             tint = Color.White
         )
         Spacer(modifier = Modifier.weight(weight = 1f))
+        Icon(
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_clear),
+            contentDescription = null,
+            modifier = Modifier
+                .height(height = 32.dp)
+                .clickable {
+                    onLoggoutClick()
+                },
+            tint = Color.White
+        )
+        Spacer(modifier = Modifier.weight(weight = 1f))
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun PreviewProducersBottomNavigation() {
-    ProducersBottomNavigation()
+    ProducersBottomNavigation() {
+
+    }
 }

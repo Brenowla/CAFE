@@ -9,6 +9,8 @@ import com.example.cafe.common.firebase.models.UserModel
 import com.example.cafe.common.firebase.providers.FirebaseAuthenticator
 import com.example.cafe.common.firebase.providers.FirebaseUserVerification
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +20,7 @@ class ActivityViewModel @Inject constructor(
     val mFirebaseUserVerification: FirebaseUserVerification
 ) : ViewModel() {
 
-    val loading = mutableStateOf(false)
+    val loading = mutableStateOf(true)
 
     private val mUser = mutableStateOf<UserModel?>(null)
     val user: State<UserModel?>
@@ -43,5 +45,20 @@ class ActivityViewModel @Inject constructor(
                 }
             )
         }
+    }
+
+    fun verifyUserLogged() {
+        loading.value = true
+        val actualUser = Firebase.auth.currentUser
+        if(actualUser != null) {
+            getUser(actualUser)
+        } else {
+            loading.value = false
+        }
+    }
+
+    fun logout() {
+        Firebase.auth.signOut()
+        mUser.value = null
     }
 }

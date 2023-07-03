@@ -1,7 +1,6 @@
 package com.example.cafe.producers.ui.screens
 
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,7 +11,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,7 +25,6 @@ import com.example.cafe.common.theme.CafeTheme.typography
 import com.example.cafe.common.ui.components.CafeEditTextField
 import com.example.cafe.producers.ui.viewmodels.ProducersHomeViewModel
 import com.example.cafe.products.constants.ProductsTypeEnum
-import com.example.cafe.products.data.model.ProductModel
 import com.example.cafe.products.ui.widget.ProductTypeWidget
 import com.example.cafe.products.ui.widget.ProductWidget
 
@@ -35,22 +32,29 @@ import com.example.cafe.products.ui.widget.ProductWidget
 fun ProducersHomeScreen(
     viewModel: ProducersHomeViewModel = hiltViewModel()
 ) {
-    val selectedProductsTypeEnum = remember {
-        mutableStateOf<ProductsTypeEnum?>(null)
-    }
-
     LaunchedEffect(true) {
         viewModel.getProducts()
     }
 
+    LaunchedEffect(viewModel.search.value, viewModel.type.value) {
+        viewModel.filter()
+    }
+
     Column() {
         Spacer(modifier = Modifier.height(height = spacing.spacing4))
-        Text(text = "Seus produtos", modifier = Modifier.padding(horizontal = spacing.spacing4), style = typography.heading4)
+        Text(
+            text = "Seus produtos",
+            modifier = Modifier.padding(horizontal = spacing.spacing4),
+            style = typography.heading4
+        )
         Spacer(modifier = Modifier.height(height = spacing.spacing4))
         CafeEditTextField(
             modifier = Modifier.padding(horizontal = spacing.spacing4),
-            value = "",
-            iconStart = R.drawable.ic_search
+            value = viewModel.search.value,
+            onValueChange = { viewModel.search.value = it },
+            iconStart = R.drawable.ic_search,
+            iconEnd = if (viewModel.search.value.isNotBlank()) R.drawable.ic_clear else null,
+            onEndIconClick = { viewModel.search.value = "" }
         )
         Spacer(modifier = Modifier.height(height = spacing.spacing4))
         Row(modifier = Modifier.horizontalScroll(state = rememberScrollState())) {
@@ -58,18 +62,21 @@ fun ProducersHomeScreen(
             ProductsTypeEnum.getAll().forEach { product ->
                 ProductTypeWidget(
                     product = product,
-                    selected = selectedProductsTypeEnum.value == product
+                    selected = viewModel.type.value == product
                 ) {
-                    selectedProductsTypeEnum.value =
-                        if (product == selectedProductsTypeEnum.value) null else product
+                    viewModel.type.value =
+                        if (product == viewModel.type.value) null else product
                 }
                 Spacer(modifier = Modifier.width(width = spacing.spacing4))
             }
         }
-        LazyVerticalGrid(columns = GridCells.Fixed(count = 2)) {
+        LazyVerticalGrid(
+            modifier = Modifier.padding(all = spacing.spacing2),
+            columns = GridCells.Fixed(count = 2)
+        ) {
             items(items = viewModel.items.value) {
-                Box(modifier = Modifier.padding(all = spacing.spacing4)) {
-                    ProductWidget(product = it)
+                Row(modifier = Modifier.padding(all = spacing.spacing2)) {
+                    ProductWidget(Modifier.weight(weight = 1f), product = it)
                 }
             }
         }

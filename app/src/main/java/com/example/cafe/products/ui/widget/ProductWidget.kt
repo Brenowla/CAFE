@@ -3,6 +3,7 @@ package com.example.cafe.products.ui.widget
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -19,9 +20,9 @@ import com.example.cafe.common.utils.extensions.format
 import com.example.cafe.products.data.model.ProductModel
 
 @Composable
-fun ProductWidget(product: ProductModel) {
+fun ProductWidget(modifier: Modifier = Modifier, product: ProductModel) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .background(
                 color = colors.background,
                 shape = RoundedCornerShape(size = 8.dp)
@@ -31,12 +32,18 @@ fun ProductWidget(product: ProductModel) {
         AsyncImage(
             model = product.image,
             contentDescription = null,
-            modifier = Modifier.height(height = 126.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(height = 126.dp)
         )
         Spacer(modifier = Modifier.height(height = spacing.spacing3))
         Text(text = product.name, style = typography.body, color = colors.muted)
         Spacer(modifier = Modifier.height(height = spacing.spacing3))
-        Text(text = "R$ ${product.value.format(2)}", style = typography.bodyBold, color = colors.muted)
+        Text(
+            text = "R$ ${product.value.format(2)}",
+            style = typography.bodyBold,
+            color = colors.muted
+        )
     }
 }
 

@@ -22,6 +22,7 @@ import androidx.compose.material3.RadioButtonColors
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment.Companion.Center
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
@@ -38,6 +39,7 @@ import com.example.cafe.common.theme.CafeTheme.spacing
 import com.example.cafe.common.theme.CafeTheme.typography
 import com.example.cafe.common.ui.components.CafeButton
 import com.example.cafe.common.ui.components.CafeEditTextField
+import com.example.cafe.common.ui.utils.setLoading
 import com.example.cafe.producers.ui.viewmodels.ProducersAddItemViewModel
 import com.example.cafe.products.constants.ProductsTypeEnum
 
@@ -46,6 +48,25 @@ fun ProducersAddItemScreen(
     viewModel: ProducersAddItemViewModel = hiltViewModel(),
     snackbarHostState: SnackbarHostState = SnackbarHostState()
 ) {
+    val context = LocalContext.current
+
+    LaunchedEffect(viewModel.loading.value) {
+        context.setLoading(viewModel.loading.value)
+    }
+
+    LaunchedEffect(viewModel.success.value) {
+        if(viewModel.success.value) {
+            snackbarHostState.showSnackbar("Item criado com sucesso")
+            viewModel.clearFields()
+        }
+    }
+
+    LaunchedEffect(viewModel.error.value) {
+        if(viewModel.error.value) {
+            snackbarHostState.showSnackbar("O item não foi criado com sucesso, por favor, tente mais tarde!")
+        }
+    }
+
     val galleryOpen =
         rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { imageUri ->
             viewModel.image.value = imageUri

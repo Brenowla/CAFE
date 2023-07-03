@@ -78,7 +78,7 @@ fun CafeEditTextField(
                         Icon(
                             imageVector = ImageVector.vectorResource(id = it),
                             contentDescription = null,
-                            tint = colors.light100,
+                            tint = colors.info,
                             modifier = modifier
                                 .size(16.dp)
                                 .clickable { onStartIconClick() })
@@ -93,7 +93,7 @@ fun CafeEditTextField(
                         Icon(
                             imageVector = ImageVector.vectorResource(id = it),
                             contentDescription = null,
-                            tint = colors.light100,
+                            tint = colors.info,
                             modifier = modifier
                                 .size(16.dp)
                                 .clickable { onEndIconClick() })

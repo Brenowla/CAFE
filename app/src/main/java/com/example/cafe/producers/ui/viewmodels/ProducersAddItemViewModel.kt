@@ -22,18 +22,40 @@ class ProducersAddItemViewModel @Inject constructor(
     val description = mutableStateOf("")
     val type = mutableStateOf(ProductsTypeEnum.OTHERS)
 
+    val loading = mutableStateOf(false)
+
+    val success = mutableStateOf(false)
+    val error = mutableStateOf(false)
+
     fun saveItem() {
+        loading.value = true
         viewModelScope.launch {
             firebaseAddItem.produce(
-                FirebaseAddItem.Params(ProductModel(
-                    name.value,
-                    image.value.toString(),
-                    value.value.toDouble(),
-                    description.value,
-                    type.value.apiName,
-                    ""
-                )), {}, {}, {}
+                FirebaseAddItem.Params(
+                    ProductModel(
+                        name.value,
+                        image.value.toString(),
+                        value.value.toDouble(),
+                        description.value,
+                        type.value.apiName,
+                        ""
+                    )
+                ), onSuccess = {
+                    success.value = true
+                }, onCompletion = {
+                    loading.value = false
+                }, onError = {
+                    error.value = true
+                }
             )
         }
+    }
+
+    fun clearFields() {
+        image.value = null
+        val name = ""
+        val value = ""
+        val description = ""
+        val type = ProductsTypeEnum.OTHERS
     }
 }

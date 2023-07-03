@@ -41,6 +41,10 @@ class MainActivity : ComponentActivity() {
                 SnackbarHostState()
             }
             CAFETheme() {
+                LaunchedEffect(true) {
+                    mActivityViewModel.verifyUserLogged()
+                }
+
                 LaunchedEffect(mActivityViewModel.user.value) {
                     mActivityViewModel.user.value?.let {
                         if (it.rule == 1) {
@@ -77,7 +81,14 @@ class MainActivity : ComponentActivity() {
                                 }
                             }
                             composable(route = "producers") {
-                                ProducersBaseNavigation(snackbarHostState = snackbarHostState)
+                                ProducersBaseNavigation(snackbarHostState = snackbarHostState) {
+                                    mActivityViewModel.logout()
+                                    navController.navigate("login") {
+                                        popUpTo("producers") {
+                                            inclusive = true
+                                        }
+                                    }
+                                }
                             }
                         }
                         if (mActivityViewModel.loading.value) {

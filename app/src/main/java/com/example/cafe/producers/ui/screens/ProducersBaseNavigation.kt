@@ -9,7 +9,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun ProducersBaseNavigation(snackbarHostState: SnackbarHostState) {
+fun ProducersBaseNavigation(snackbarHostState: SnackbarHostState, onLogoutClick: () -> Unit) {
     val navController = rememberNavController()
     Column {
         Column(modifier = Modifier.weight(weight = 1f)) {
@@ -22,6 +22,8 @@ fun ProducersBaseNavigation(snackbarHostState: SnackbarHostState) {
                 }
             }
         }
-        ProducersBottomNavigation(navController = navController)
+        ProducersBottomNavigation(navController = navController) {
+            onLogoutClick()
+        }
     }
 }
