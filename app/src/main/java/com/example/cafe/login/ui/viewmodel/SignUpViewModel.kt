@@ -1,6 +1,5 @@
 package com.example.cafe.login.ui.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -55,7 +54,9 @@ class SignUpViewModel @Inject constructor(
                         id = user.uid,
                         email = email.value,
                         name = name.value,
-                        rule = 0
+                        rule = 0,
+                        video = null,
+                        description = null
                     )
                 ), onSuccess = {
                     signUp.value = true

@@ -4,8 +4,10 @@ data class UserModel constructor(
     val id: String,
     val email: String,
     val name: String,
-    val rule: Int
+    val rule: Int,
+    val description: String?,
+    val video: String?
 ) {
 
-    constructor(): this("", "","", -1)
+    constructor(): this("", "","", -1, "", "")
 }

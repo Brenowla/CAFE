@@ -79,13 +79,13 @@ fun ProducersAddItemScreen(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(fraction = 0.1f)
+                .height(height = 50.dp)
                 .background(
-                    color = CafeTheme.colors.primary100, shape = RoundedCornerShape(
+                    color = colors.primary100, shape = RoundedCornerShape(
                         topStart = 0.dp,
                         topEnd = 0.dp,
-                        bottomEnd = CafeTheme.spacing.spacing8,
-                        bottomStart = CafeTheme.spacing.spacing8
+                        bottomEnd = spacing.spacing8,
+                        bottomStart = spacing.spacing8
                     )
                 )
         )

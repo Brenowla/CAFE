@@ -20,6 +20,9 @@ fun ProducersBaseNavigation(snackbarHostState: SnackbarHostState, onLogoutClick:
                 composable("producers-add-item") {
                     ProducersAddItemScreen(snackbarHostState = snackbarHostState)
                 }
+                composable("producers-description-screen") {
+                    ProducersDescriptionScreen()
+                }
             }
         }
         ProducersBottomNavigation(navController = navController) {

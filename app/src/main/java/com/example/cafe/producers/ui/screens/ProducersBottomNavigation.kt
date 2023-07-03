@@ -65,7 +65,11 @@ fun ProducersBottomNavigation(
         Icon(
             imageVector = ImageVector.vectorResource(id = R.drawable.ic_info),
             contentDescription = null,
-            modifier = Modifier.height(height = 32.dp),
+            modifier = Modifier
+                .height(height = 32.dp)
+                .clickable {
+                    navController.navigate("producers-description-screen")
+                },
             tint = Color.White
         )
         Spacer(modifier = Modifier.weight(weight = 1f))

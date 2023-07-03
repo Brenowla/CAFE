@@ -33,6 +33,8 @@ class MainActivity : ComponentActivity() {
         mActivityViewModel.loading.value = loading
     }
 
+    fun loggedUser() = mActivityViewModel.user.value
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
