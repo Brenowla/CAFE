@@ -32,8 +32,8 @@ fun ProductTypeWidget(product: ProductsTypeEnum, selected: Boolean, onClickListe
                 color = if (selected) Gray300 else colors.background,
                 shape = RoundedCornerShape(8.dp)
             )
-            .padding(all = spacing.spacing4)
-            .size(size = 84.dp)
+            .padding(all = spacing.spacing2)
+            .size(size = 64.dp)
             .clickable {
                 onClickListener()
             },
@@ -43,11 +43,11 @@ fun ProductTypeWidget(product: ProductsTypeEnum, selected: Boolean, onClickListe
         Icon(
             imageVector = ImageVector.vectorResource(id = product.icon),
             contentDescription = null,
-            modifier = Modifier.size(size = 32.dp),
+            modifier = Modifier.size(size = 24.dp),
             tint = colors.secondary100
         )
         Spacer(modifier = Modifier.height(height = spacing.spacing3))
-        Text(text = product.title, style = typography.body, color = colors.dark)
+        Text(text = product.title, style = typography.sm, color = colors.dark, maxLines = 1)
     }
 }
 

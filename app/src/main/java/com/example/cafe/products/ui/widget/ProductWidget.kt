@@ -1,6 +1,7 @@
 package com.example.cafe.products.ui.widget
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,6 +11,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -29,13 +32,18 @@ fun ProductWidget(modifier: Modifier = Modifier, product: ProductModel) {
             )
             .padding(all = 16.dp)
     ) {
-        AsyncImage(
-            model = product.image,
-            contentDescription = null,
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .height(height = 126.dp)
-        )
+        ) {
+            AsyncImage(
+                modifier = Modifier.clip(shape = RoundedCornerShape(size = 8.dp)),
+                model = product.image,
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth
+                )
+        }
         Spacer(modifier = Modifier.height(height = spacing.spacing3))
         Text(text = product.name, style = typography.body, color = colors.muted)
         Spacer(modifier = Modifier.height(height = spacing.spacing3))

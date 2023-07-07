@@ -20,6 +20,7 @@ import com.example.cafe.common.theme.CafeTheme
 import com.example.cafe.common.theme.CafeTheme.spacing
 import com.example.cafe.common.theme.CafeTheme.typography
 import com.example.cafe.common.ui.components.YoutubePlayer
+import com.example.cafe.common.ui.utils.annotatedString
 import com.example.cafe.common.ui.utils.getUser
 
 @Composable
@@ -43,7 +44,7 @@ fun ProducersDescriptionScreen() {
         )
         Spacer(modifier = Modifier.height(height = spacing.spacing4))
         Text(
-            text = user?.description ?: "",
+            text = annotatedString(text = user?.description ?: ""),
             style = typography.body,
             modifier = Modifier.padding(horizontal = spacing.spacing4)
         )
