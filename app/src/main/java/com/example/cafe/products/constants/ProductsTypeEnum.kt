@@ -30,5 +30,7 @@ enum class ProductsTypeEnum(val apiName: String) {
 
     companion object {
         fun getAll() = values().toList()
+
+        fun getFromName(name: String?) = values().firstOrNull { it.apiName == name } ?: OTHERS
     }
 }

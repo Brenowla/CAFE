@@ -68,24 +68,20 @@ fun SignUpScreen(
                 value = viewModel.name.value,
                 onValueChange = { viewModel.name.value = it },
                 placeholder = "nome completo",
-                keyboardType = KeyboardType.Password,
-                visualTransformation = PasswordVisualTransformation('*')
             )
             Spacer(modifier = Modifier.height(height = spacing.spacing4))
             CafeEditTextField(
                 value = viewModel.email.value,
                 onValueChange = { viewModel.email.value = it },
                 placeholder = "email",
-                keyboardType = KeyboardType.Password,
-                visualTransformation = PasswordVisualTransformation('*')
+                keyboardType = KeyboardType.Email,
             )
             Spacer(modifier = Modifier.height(height = spacing.spacing4))
             CafeEditTextField(
                 value = viewModel.phone.value,
                 onValueChange = { viewModel.phone.value = it },
                 placeholder = "telefone",
-                keyboardType = KeyboardType.Password,
-                visualTransformation = PasswordVisualTransformation('*')
+                keyboardType = KeyboardType.Phone,
             )
             Spacer(modifier = Modifier.height(height = spacing.spacing4))
             CafeEditTextField(

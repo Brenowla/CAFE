@@ -1,6 +1,7 @@
 package com.example.cafe.common.ui.activity
 
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -13,9 +14,11 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cafe.clients.ui.screen.ClientBaseNavigation
 import com.example.cafe.common.theme.CAFETheme
 import com.example.cafe.common.theme.CafeTheme.colors
 import com.example.cafe.common.ui.LoadingScreen
@@ -37,6 +40,12 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+        )
         setContent {
             val navController = rememberNavController()
             val snackbarHostState = remember {
@@ -51,6 +60,12 @@ class MainActivity : ComponentActivity() {
                     mActivityViewModel.user.value?.let {
                         if (it.rule == 1) {
                             navController.navigate("producers") {
+                                popUpTo("login") {
+                                    inclusive = true
+                                }
+                            }
+                        } else {
+                            navController.navigate("clients") {
                                 popUpTo("login") {
                                     inclusive = true
                                 }
@@ -87,6 +102,16 @@ class MainActivity : ComponentActivity() {
                                     mActivityViewModel.logout()
                                     navController.navigate("login") {
                                         popUpTo("producers") {
+                                            inclusive = true
+                                        }
+                                    }
+                                }
+                            }
+                            composable(route = "clients") {
+                                ClientBaseNavigation(snackbarHostState = snackbarHostState) {
+                                    mActivityViewModel.logout()
+                                    navController.navigate("login") {
+                                        popUpTo("clients") {
                                             inclusive = true
                                         }
                                     }

@@ -1,4 +1,4 @@
-package com.example.cafe.producers.ui.screens
+package com.example.cafe.clients.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,23 +13,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.cafe.R
-import com.example.cafe.common.theme.CafeTheme.colors
-import com.example.cafe.common.theme.CafeTheme.spacing
+import com.example.cafe.common.theme.CafeTheme
 
 @Composable
-fun ProducersBottomNavigation(
+fun ClientBottomNavigation(
     navController: NavController = rememberNavController(),
     onLogoutClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .background(
-                color = colors.secondary200,
+                color = CafeTheme.colors.secondary200,
                 shape = RoundedCornerShape(
                     topEnd = 16.dp,
                     topStart = 16.dp,
@@ -37,7 +35,7 @@ fun ProducersBottomNavigation(
                     bottomEnd = 0.dp
                 )
             )
-            .padding(vertical = spacing.spacing2)
+            .padding(vertical = CafeTheme.spacing.spacing2)
     ) {
         Spacer(modifier = Modifier.weight(weight = 1f))
         Icon(
@@ -46,29 +44,18 @@ fun ProducersBottomNavigation(
             modifier = Modifier
                 .height(height = 32.dp)
                 .clickable {
-                    navController.navigate("producers-home")
+                    navController.navigate("client-home")
                 },
             tint = Color.White
         )
         Spacer(modifier = Modifier.weight(weight = 1f))
         Icon(
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_add_circle),
+            imageVector = ImageVector.vectorResource(id = R.drawable.ic_list),
             contentDescription = null,
             modifier = Modifier
                 .height(height = 32.dp)
                 .clickable {
-                    navController.navigate("producers-add-item")
-                },
-            tint = Color.White
-        )
-        Spacer(modifier = Modifier.weight(weight = 1f))
-        Icon(
-            imageVector = ImageVector.vectorResource(id = R.drawable.ic_info),
-            contentDescription = null,
-            modifier = Modifier
-                .height(height = 32.dp)
-                .clickable {
-                    navController.navigate("producers-description-screen")
+//                    navController.navigate("producers-add-item")
                 },
             tint = Color.White
         )
@@ -84,13 +71,5 @@ fun ProducersBottomNavigation(
             tint = Color.White
         )
         Spacer(modifier = Modifier.weight(weight = 1f))
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-private fun PreviewProducersBottomNavigation() {
-    ProducersBottomNavigation() {
-
     }
 }
